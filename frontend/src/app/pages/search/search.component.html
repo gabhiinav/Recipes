@@ -1,0 +1,29 @@
+<app-header />
+<div class="flex flex-col w-[50%] m-auto mt-6 gap-6">
+  <div class="flex items-center justify-between mb-4">
+  </div>
+
+  <div *ngIf="searchResults.length > 0; else noResults">
+    <ul>
+      <li *ngFor="let post of searchResults" class="flex flex-col gap-5 md:flex-row cursor-pointer mb-5" [routerLink]="['/post-details', post.id]">
+        <div class="h-48 w-48 relative flex-shrink-0">
+          <img
+            [src]="postService.imageBaseUrl + post.cover"
+            alt="post image"
+            class="aspect-square object-cover"
+          />
+        </div>
+        <div class="flex flex-col">
+          <div class="font-extrabold text-3xl">{{ post.title | slice: 0:50 }}</div>
+          <div class="flex-grow">{{ post.cuisine | slice: 0:50 }}</div>
+          <div class="flex-grow">{{ post.ingredients | slice: 0:200 }}</div>
+          <div class="font-bold">{{ post.user.email }}</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #noResults>
+    <p *ngIf="searchQuery">No results found for "{{ searchQuery }}"</p>
+  </ng-template>
+</div>

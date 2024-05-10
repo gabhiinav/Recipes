@@ -1,0 +1,34 @@
+<app-header />
+<form
+  class="h-screen w-screen flex flex-col justify-center items-center gap-3"
+  #signup="ngForm"
+  (ngSubmit)="checksignup()"
+>
+  <input
+    type="text"
+    name="name"
+    placeholder="name"
+    class="custom-input p-5 w-60"
+    required
+    ngModel
+  />
+  <input
+    type="text"
+    name="email"
+    placeholder="email"
+    class="custom-input p-5 w-60"
+    required
+    ngModel
+  />
+  <input
+    type="password"
+    name="password"
+    placeholder="password"
+    class="custom-input p-5 w-60"
+    required
+    ngModel
+  />
+  <button type="submit" class="bg-slate-600 rounded-lg p-5 w-60 text-white" [disabled]="signup.invalid">
+    Submit
+  </button>
+</form>

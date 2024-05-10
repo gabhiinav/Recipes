@@ -1,0 +1,47 @@
+<app-header />
+@if (postDetails) {
+<div class="flex flex-col w-[50%] m-auto mt-6 gap-6 items-start">
+  <div class="font-bold">{{ postDetails.title }}</div>
+  <div class="w-full m-auto relative h-96">
+    <img
+      [ngSrc]="Post.imageBaseUrl + postDetails.cover"
+      fill
+      class="aspect-square object-cover"
+    />
+  </div>
+  <div>Cuisine: {{ postDetails.cuisine }}</div>
+  <div>Ingredients: {{ postDetails.ingredients }}</div>
+  <div class="mb-10">
+    {{ postDetails.content }}
+  </div>
+  <h3>Comments</h3>
+  <ul>
+    <li *ngFor="let comment of comments">
+      <strong>{{ comment.user.name }}</strong
+      >: {{ comment.content }}
+    </li>
+  </ul>
+  <textarea
+  [(ngModel)]="newComment"
+  placeholder="Enter your comment"
+></textarea>
+<button (click)="createComment(postDetails.id)">Submit Comment</button>
+</div>
+@if (auth.userId === postDetails.userId) {
+<button
+  class="bg-slate-700 text-white px-3 py-3 self-center rounded-md"
+  [routerLink]="['/edit-post', postDetails.id]"
+>
+  edit
+</button>
+<button
+  class="bg-slate-700 text-white px-3 py-3 self-center rounded-md"
+  (click)="deletePost(postDetails.id)"
+>
+  delete
+</button>
+} } @else if (error) {
+<h1>{{ error }}</h1>
+} @else {
+<div>loading...</div>
+}
